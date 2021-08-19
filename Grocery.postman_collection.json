@@ -1,0 +1,142 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Grocery",
+		"_postman_id": "dcc94d08-4ad7-8678-ad19-113d86566308",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"url": "http://localhost:4000/api/users/register",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Ahmad Saleh\",\n\t\"email\":\"ahmadmsa871@yahoo.com\",\n\t\"password\":\"test2333\",\n\t\"phone\": \"099288882\",\n\t\"gender\":\"male\",\n\t\"role\":\"client\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"url": "http://localhost:4000/api/auth",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"ahmadmsa87@gmail.com\",\n\t\"password\":\"test2333\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "add products",
+			"request": {
+				"url": "http://localhost:4000/api/products",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTFlNGM0NjljMTdlNzMyMGM5NWVkMWUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2MjkzNzU1ODB9.b93Oy0oizGC6rwZsjZVUKxedh1kqXCoh0mpu5cRjiiU",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\n\t\"name\":\"Priya Rice Bag (40 kg)\",\n\t\"barcode\":\"34898991\",\n\t\"brand\":\"Priya\",\n\t\"description\":\"Priya Rice Bag (20 kg)\",\n\t\"price\":200,\n\t\"available\":\"true\"\n},\n{\n\t\"name\":\"Priya Rice Bag (10 kg)\",\n\t\"barcode\":\"34898992\",\n\t\"brand\":\"Priya\",\n\t\"description\":\"Priya Rice Bag (20 kg)\",\n\t\"price\":200,\n\t\"available\":\"true\"\n},\n{\n\t\"name\":\"Priya Rice Bag (30 kg)\",\n\t\"barcode\":\"34898993\",\n\t\"brand\":\"Priya\",\n\t\"description\":\"Priya Rice Bag (20 kg)\",\n\t\"price\":200,\n\t\"available\":\"true\"\n}]"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Product Review",
+			"request": {
+				"url": "http://localhost:4000/api/products/review",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTFlNGM0NjljMTdlNzMyMGM5NWVkMWUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2MjkzNzU1ODB9.b93Oy0oizGC6rwZsjZVUKxedh1kqXCoh0mpu5cRjiiU",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Ahmad\",\n\t\"review\":\"Good!\",\n\t\"productId\":\"611e4c649c17e7320c95ed26\"\n}\n"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Product Search",
+			"request": {
+				"url": {
+					"raw": "http://localhost:4000/api/products/ice?page=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"products",
+						"ice"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTFlNGM0NjljMTdlNzMyMGM5NWVkMWUiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2MjkzNzkyMDR9.5hPaUFSBzjsWVfoyHvkxeLht023MFB4onKwmYzaBBBo",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Ahmad\",\n\t\"review\":\"Good!\",\n\t\"productId\":\"611e13511195f683207165d9\"\n}\n"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

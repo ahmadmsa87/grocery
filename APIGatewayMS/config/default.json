@@ -1,0 +1,6 @@
+{
+    "jwtPrivateKey": "gateway_jwtPrivateKey",
+    "db": "mongodb+srv://ahmad:ahmad2@db1.1ocbl.mongodb.net/grocery?retryWrites=true&w=majority",
+    "productsMSUrl": "http://localhost:4002/api/products",
+    "UsersMSUrl": "http://localhost:4001/api/Users"
+}

@@ -1,0 +1,25 @@
+[{
+        "name": "Priya Rice Bag (40 kg)",
+        "barcode": "34898991",
+        "brand": "Priya",
+        "description": "Priya Rice Bag (20 kg)",
+        "price": 200,
+        "available": "true"
+    },
+    {
+        "name": "Priya Rice Bag (10 kg)",
+        "barcode": "34898992",
+        "brand": "Priya",
+        "description": "Priya Rice Bag (20 kg)",
+        "price": 200,
+        "available": "true"
+    },
+    {
+        "name": "Priya Rice Bag (30 kg)",
+        "barcode": "34898993",
+        "brand": "Priya",
+        "description": "Priya Rice Bag (20 kg)",
+        "price": 200,
+        "available": "true"
+    }
+]

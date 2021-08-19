@@ -14,38 +14,66 @@ router.get("/:search", async(req, res) => {
         let product = await Product.aggregate([{
                 $match: { name: searchPattern },
             },
+
             {
-                $project: {
-                    _id: {
-                        $toString: "$_id",
-                    },
-                    name: {
-                        $toString: "$name",
-                    },
-                    barcode: {
-                        $toString: "$barcode",
-                    },
-                    brand: {
-                        $toString: "$brand",
-                    },
-                    description: {
-                        $toString: "$description",
-                    },
-                    price: {
-                        $toString: "$price",
-                    },
-                    available: {
-                        $toString: "$available",
-                    },
+                $lookup: {
+                    from: "reviews",
+                    let: { order_item: "$barcode", user_id: "$userId" },
+                    pipeline: [{
+                        $match: {
+                            $expr: {
+                                $and: [{ $eq: ["$barcode", "$$order_item"] }],
+                            },
+                        },
+                    }, ],
+                    as: "reviews",
+                },
+            },
+            {
+                $unwind: {
+                    path: "$reviews",
+                    preserveNullAndEmptyArrays: true,
                 },
             },
             {
                 $lookup: {
-                    from: "reviews",
-                    localField: "_id",
-                    foreignField: "productId",
+                    from: "users",
+                    localField: "reviews.userId",
+                    foreignField: "_id",
+                    as: "userInfo",
+                },
+            },
 
-                    as: "reviews",
+            {
+                $group: {
+                    _id: "$_id",
+                    name: { $first: "$name" },
+
+                    barcode: {
+                        $first: "$barcode",
+                    },
+                    brand: {
+                        $first: "$brand",
+                    },
+                    description: {
+                        $first: "$description",
+                    },
+                    price: {
+                        $first: "$price",
+                    },
+                    available: {
+                        $first: "$available",
+                    },
+                    reviews: {
+                        $push: {
+                            _id: "$reviews._id",
+                            review: "$reviews.review",
+
+                            name: {
+                                $first: "$userInfo.name",
+                            },
+                        },
+                    },
                 },
             },
             { $skip: (page - 1) * PAGE_SIZE },
@@ -90,21 +118,23 @@ router.post("/review", async(req, res) => {
     const { error } = validateReview(req.body);
     if (error) return res.status(400).send(error.details[0].message);
 
-    const product = await Product.findById(req.body.productId);
-    if (!product) return res.status(400).send("Invalid product.");
+    const product = await Product.find({ barcode: req.body.barcode });
+    if (!product)
+        return res.status(400).send({ errorMessage: "Invalid product." });
 
     let review = new Review({
-        name: req.body.name,
+        userId: req.body.userId,
         review: req.body.review,
-        productId: req.body.productId,
+        barcode: req.body.barcode,
+        createdAt: new Date(),
     });
-
+    console.log("review", review);
     try {
         await review.save();
 
         res.send(review);
     } catch (ex) {
-        res.status(500).send("Something failed.");
+        res.status(500).send({ errorMessage: "Something failed." });
     }
 });
 

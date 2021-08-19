@@ -53,6 +53,8 @@ router.post("/", [auth, admin], async(req, res) => {
 router.post("/review", [auth], async(req, res) => {
     try {
         const url = config.get("productsMSUrl") + "/review";
+        const body = req.body;
+        body.userId = req.user._id;
         const apiResponse = await fetch(url, {
             method: "post",
             body: JSON.stringify(req.body),

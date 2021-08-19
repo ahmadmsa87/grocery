@@ -2,7 +2,7 @@ const Joi = require("joi");
 const mongoose = require("mongoose");
 
 const reviewSchema = new mongoose.Schema({
-    name: {
+    userId: {
         type: String,
         required: true,
         trim: true,
@@ -16,11 +16,14 @@ const reviewSchema = new mongoose.Schema({
         min: 2,
         max: 255,
     },
-    productId: {
+    barcode: {
         type: String,
         required: true,
         min: 2,
         max: 255,
+    },
+    createdAt: {
+        type: Date,
     },
 });
 
@@ -28,9 +31,9 @@ const Review = mongoose.model("Review", reviewSchema);
 
 function validateReview(review) {
     const schema = {
-        name: Joi.string().min(2).max(255).required(),
+        userId: Joi.string().min(2).max(255).required(),
         review: Joi.string().min(2).max(255).required(),
-        productId: Joi.string().min(2).max(255).required(),
+        barcode: Joi.string().min(2).max(255).required(),
     };
 
     return Joi.validate(review, schema);
